@@ -24,7 +24,8 @@ CC_FLAGS     = -DUSE_LUFA_CONFIG_HEADER -IConfig/
 LD_FLAGS     =
 
 # Default target
-all:
+all:	
+	rm Joystick.bin Joystick.eep Joystick.elf Joystick.lss Joystick.map Joystick.sym
 
 # Include LUFA build script makefiles
 include $(LUFA_PATH)/Build/lufa_core.mk
