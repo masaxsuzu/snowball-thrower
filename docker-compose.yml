@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+    # docker-compose run --rm make 
+    make:
+        build: .
+        volumes: 
+            - ".:/app"
