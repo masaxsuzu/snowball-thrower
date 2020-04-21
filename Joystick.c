@@ -25,15 +25,21 @@ typedef enum {
 	DOWN,
 	LEFT,
 	RIGHT,
+	R_UP,
+	R_DOWN,
+	R_LEFT,
+	R_RIGHT,
 	X,
 	Y,
 	A,
 	B,
 	L,
 	R,
-	THROW,
+	ZR,
+	PLUS,
 	NOTHING,
-	TRIGGERS
+	TRIGGERS,
+	HOME,
 } Buttons_t;
 
 typedef struct {
@@ -42,148 +48,139 @@ typedef struct {
 } command; 
 
 static const command step[] = {
-	// Setup controller
-	{ NOTHING,  250 },
-	{ TRIGGERS,   5 },
-	{ NOTHING,  150 },
-	{ TRIGGERS,   5 },
-	{ NOTHING,  150 },
-	{ A,          5 },
-	{ NOTHING,  250 },
+	// Setup Controller
+  	{ NOTHING,  120 },
+  	{ TRIGGERS,  20 },
+  	{ NOTHING,  120 },
+  	{ TRIGGERS,  20 },
+  	{ NOTHING,  120 },
+  	{ A,         20 }, //2回目以降無視される。
+  	{ NOTHING,   6 },
 
-	// Talk to Pondo
-	{ A,          5 }, // Start
-	{ NOTHING,   30 },
-	{ B,          5 }, // Quick output of text
-	{ NOTHING,   20 }, // Halloo, kiddums!
-	{ A,          5 }, // <- I'll try it!
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 }, // <- OK!
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // Aha! Play bells are ringing! I gotta set up the pins, but I'll be back in a flurry
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  325 }, // Cut to different scene (Knock 'em flat!)
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ A,          5 }, // <Continue> // Camera transition takes place after this
-	{ NOTHING,   50 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // If you can knock over all 10 pins in one roll, that's a strike
-	{ A,          5 }, // <Continue>
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // A spare is...
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  100 }, // Well, good luck
-	{ A,          5 }, // <Continue>
-	{ NOTHING,  150 }, // Pondo walks away
+	// ねがいのかたまりを投入して、
+	// 2000Wを取得した状態の台座を選択したところ。
+	// 
+	// 募集開始後、ホーム画面に移動する。
+	{ A,         20 },
+  	{ NOTHING,   600 },
+  	{ HOME,      10 },
+  	{ NOTHING,   120 },
 
-	// Pick up Snowball (Or alternatively, run to bail in case of a non-strike)
-	{ A,          5 },
-	{ NOTHING,   50 },
-	{ LEFT,      42 },
-	{ UP,        80 },
-	{ THROW,     25 },
+	// ソフトタイルから設定画面に移動する。
+  	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+  	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
+  	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
+  	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
+	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
 
-	// Non-strike alternative flow, cancel bail and rethrow
-	{ NOTHING,   30 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 }, // I have to split dialogue (It's nothing)
-	{ NOTHING,   15 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,  450 },
-	{ B,          5 }, // Snowly moly... there are rules!
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 }, // Second dialogue
-	{ NOTHING,   20 },
-	{ DOWN,      10 }, // Return to snowball
-	{ NOTHING,   20 },
-	{ A,          5 }, // Pick up snowball, we just aimlessly throw it
-	{ NOTHING,   50 },
-	{ UP,        10 },
-	{ THROW,     25 },
+	// 設定画面で本体設定まで移動
+  	{ A,         20 },
+  	{ NOTHING,   60 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
 
-	// Back at main flow
-	{ NOTHING,  175 }, // Ater throw wait
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 }, // To the rewards
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
+	// 本体設定でなにかをする。
+	// 日ではなくて、日を変更したほうが安定する？
+  	{ A,         20 },
+  	{ NOTHING,   60 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+  	{ A,         20 },
+  	{ NOTHING,   60 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+	{ DOWN,      5 },
+  	{ NOTHING,   10 },
+  	{ A,         20 },
+  	{ NOTHING,   60 },
+	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
+	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
+  	{ UP,         5 },
+  	{ NOTHING,   10 },
+	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
+	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
+	{ RIGHT,      5 },
+  	{ NOTHING,   10 },
+  	{ A,         20 },
+  	{ NOTHING,   60 },
+  	{ B,         20 },
+  	{ NOTHING,   60 },
+  	{ B,         20 },
+  	{ NOTHING,   60 },
+  	{ B,         20 },
+  	{ NOTHING,   60 },
 	
-	{ B,          5 }, // Wait for 450 cycles by bashing B (Like real players do!)
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 },
-	{ B,          5 },
-	{ NOTHING,   20 } // Saving, intermission
+	// ソフトを再開する。
+  	{ LEFT,      5 },
+  	{ NOTHING,   10 },
+  	{ LEFT,      5 },
+  	{ NOTHING,   10 },
+  	{ LEFT,      5 },
+  	{ NOTHING,   10 },
+  	{ LEFT,      5 },
+  	{ NOTHING,   10 },
+  	{ UP,        5 },
+  	{ NOTHING,   10 },
+  	{ A,         20 },
+  	{ NOTHING,   240 },
+
+	// 募集をやめる。
+  	{ B,         20 },
+  	{ NOTHING,   60 },
+	{ A,         20 },
+  	{ NOTHING,   240 },
+  	{ B,         20 },
+  	{ NOTHING,   300 },
+	
+	// 2000Wを取得する。
+  	{ A,         20 },
+  	{ NOTHING,   60 },
+  	{ A,         20 },
+  	{ NOTHING,   60 },
+  	{ A,         20 },
+  	{ NOTHING,   60 },
+
 };
 
 // Main entry point.
@@ -410,6 +407,22 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					ReportData->LX = STICK_MAX;				
 					break;
 
+				case R_UP:
+					ReportData->RY = STICK_MIN;				
+					break;
+
+				case R_LEFT:
+					ReportData->RX = STICK_MIN;				
+					break;
+
+				case R_DOWN:
+					ReportData->RY = STICK_MAX;				
+					break;
+
+				case R_RIGHT:
+					ReportData->RX = STICK_MAX;				
+					break;
+
 				case A:
 					ReportData->Button |= SWITCH_A;
 					break;
@@ -418,19 +431,34 @@ void GetNextReport(USB_JoystickReport_Input_t* const ReportData) {
 					ReportData->Button |= SWITCH_B;
 					break;
 
+				case X:
+					ReportData->Button |= SWITCH_X;
+					break;
+
+				case Y:
+					ReportData->Button |= SWITCH_Y;
+					break;
+
 				case R:
 					ReportData->Button |= SWITCH_R;
 					break;
 
-				case THROW:
-					ReportData->LY = STICK_MIN;				
-					ReportData->Button |= SWITCH_R;
+				case ZR:
+					ReportData->Button |= SWITCH_ZR;
+					break;
+
+				case PLUS:
+					ReportData->Button |= SWITCH_PLUS;
 					break;
 
 				case TRIGGERS:
 					ReportData->Button |= SWITCH_L | SWITCH_R;
 					break;
 
+				case HOME:
+					ReportData->Button |= SWITCH_HOME;
+					break;
+				
 				default:
 					ReportData->LX = STICK_CENTER;
 					ReportData->LY = STICK_CENTER;

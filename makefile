@@ -25,7 +25,7 @@ LD_FLAGS     =
 
 # Default target
 all:	
-	rm Joystick.bin Joystick.eep Joystick.elf Joystick.lss Joystick.map Joystick.sym
+	# rm Joystick.bin Joystick.eep Joystick.elf Joystick.lss Joystick.map Joystick.sym
 
 # Include LUFA build script makefiles
 include $(LUFA_PATH)/Build/lufa_core.mk
